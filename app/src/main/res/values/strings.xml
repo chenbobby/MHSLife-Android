@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MHSLife</string>
+    <string name="mhslife">MHS Life</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="newpassword">New Password</string>
+    <string name="confirmpassword">Confirm Password</string>
+    <string name="login">Login</string>
+    <string name="register">Register</string>
+    <string name="gotoregister">Don\'t have an Account?</string>
+</resources>

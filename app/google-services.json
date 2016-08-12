@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "623062349464",
+    "firebase_url": "https://mhs-life.firebaseio.com",
+    "project_id": "mhs-life",
+    "storage_bucket": "mhs-life.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:623062349464:android:68056b06183798e5",
+        "android_client_info": {
+          "package_name": "com.bob.mhslife"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "623062349464-rldsaerlovnbem8qhlttmckse3mig1o8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCRRcX9ES7suGgrKUnMvmt_6_VwqnxA2Kk"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
