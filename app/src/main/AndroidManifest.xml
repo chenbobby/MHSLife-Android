@@ -18,7 +18,12 @@
             </intent-filter>
         </activity>
         <activity android:name=".RegisterActivity" />
-        <activity android:name=".HomeActivity"></activity>
+        <activity android:name=".FragmentTabs" />
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".CalendarActivity"></activity>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="77bad07f2114cd8c5720cca7627ee7369205ab61" />
     </application>
 
 </manifest>

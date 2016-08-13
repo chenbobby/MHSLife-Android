@@ -1,10 +1,15 @@
 package com.bob.mhslife;
 
-import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -12,28 +17,38 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-public class HomeActivity extends Activity {
+public class HomeFragment extends Fragment {
 
-    private static final String TAG = "HomeActivity";
+    private static final String TAG = "HomeFragment";
     private DatabaseReference ref;
+    private DatabaseReference accountRef;
+    private ValueEventListener accountListener;
+    private DatabaseReference newsRef;
+    private ValueEventListener newsListener;
 
     private ArrayList<String> favorites;
 
     private ProgressDialog progressDialog;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View V = inflater.inflate(R.layout.fragment_home, container, false);
+
+        return V;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
 
         ref = FirebaseDatabase.getInstance().getReference();
 
-        progressDialog = new ProgressDialog(this);
+        progressDialog = new ProgressDialog(super.getContext());
         progressDialog.setMessage("Loading Account...");
         progressDialog.show();
 
@@ -43,16 +58,10 @@ public class HomeActivity extends Activity {
         progressDialog.dismiss();
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-    }
-
     // Load Data
     private void loadAccount(){
-        DatabaseReference accountRef = ref.child("users/" + User.UID);
-        accountRef.addValueEventListener(new ValueEventListener() {
+        accountRef = ref.child("users/" + User.UID);
+        accountListener = accountRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
@@ -86,8 +95,8 @@ public class HomeActivity extends Activity {
     }
 
     private void loadNews(){
-        DatabaseReference newsRef = ref.child("news/");
-        newsRef.addValueEventListener(new ValueEventListener() {
+        newsRef = ref.child("news/");
+        newsListener = newsRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 Map<String, Object> news = new HashMap<String, Object>();
@@ -106,5 +115,22 @@ public class HomeActivity extends Activity {
                 Log.e(TAG, databaseError.getMessage());
             }
         });
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        if(accountListener != null){
+            accountRef.removeEventListener(accountListener);
+        }
+        if(newsListener != null){
+            newsRef.removeEventListener(newsListener);
+        }
+
+        FirebaseAuth.getInstance().signOut();
+        User.UID = null;
+        User.favorites = null;
+        User.favoriteEvents = null;
     }
 }
