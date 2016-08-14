@@ -2,13 +2,93 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
     android:orientation="vertical"
+    android:background="@color/colorRed"
     tools:context="com.bob.mhslife.HomeFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:orientation="vertical"
+        android:background="@drawable/skyroundbox">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="NEWS"
+            android:textColor="@color/colorBlue"/>
+
+        <TextView
+            android:id="@+id/headline1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Headline 1"
+            android:textColor="@color/colorBlue"/>
+
+        <TextView
+            android:id="@+id/headline2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Headline 2"
+            android:textColor="@color/colorBlue"/>
+
+        <TextView
+            android:id="@+id/headline3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Headline 3"
+            android:textColor="@color/colorBlue"/>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Home Fragment" />
+        android:layout_marginTop="20dp"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:orientation="vertical"
+        android:background="@drawable/skyroundbox">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:text="FAVORITES"
+                android:textSize="30dp"
+                android:textColor="@color/colorBlue"/>
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_add"
+                android:background="@color/transparent"
+                android:onClick="goToGroupSearch"/>
+
+        </RelativeLayout>
+
+        <ListView
+            android:id="@+id/favoritesLV"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        </ListView>
+
+    </LinearLayout>
 
 </LinearLayout>

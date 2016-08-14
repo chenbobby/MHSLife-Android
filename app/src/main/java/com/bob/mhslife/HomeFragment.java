@@ -1,6 +1,8 @@
 package com.bob.mhslife;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -8,6 +10,11 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -31,16 +38,12 @@ public class HomeFragment extends Fragment {
 
     private ArrayList<String> favorites;
 
+    private TextView headline1TV;
+    private TextView headline2TV;
+    private TextView headline3TV;
+    private ListView favoritesLV;
+
     private ProgressDialog progressDialog;
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        View V = inflater.inflate(R.layout.fragment_home, container, false);
-
-        return V;
-    }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,7 +51,7 @@ public class HomeFragment extends Fragment {
 
         ref = FirebaseDatabase.getInstance().getReference();
 
-        progressDialog = new ProgressDialog(super.getContext());
+        progressDialog = new ProgressDialog(getActivity());
         progressDialog.setMessage("Loading Account...");
         progressDialog.show();
 
@@ -58,6 +61,44 @@ public class HomeFragment extends Fragment {
         progressDialog.dismiss();
     }
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        View V = inflater.inflate(R.layout.fragment_home, container, false);
+        headline1TV = (TextView)V.findViewById(R.id.headline1);
+        headline2TV = (TextView)V.findViewById(R.id.headline2);
+        headline3TV = (TextView)V.findViewById(R.id.headline3);
+        favoritesLV = (ListView)V.findViewById(R.id.favoritesLV);
+        favoritesLV.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapter, View view, int i, long l) {
+                final String groupName = (String) adapter.getItemAtPosition(i);
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getContext());
+                alertDialogBuilder.setTitle("Woah there...");
+                alertDialogBuilder
+                        .setMessage("Are you sure you want to unfavorite " + groupName + "?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yeah, Pretty Sure",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                User.toggleSubscription(groupName);
+                            }
+                        })
+                        .setNegativeButton("Not that sure...",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+
+                return false;
+            }
+        });
+
+        return V;
+    }
+
     // Load Data
     private void loadAccount(){
         accountRef = ref.child("users/" + User.UID);
@@ -65,14 +106,13 @@ public class HomeFragment extends Fragment {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if(dataSnapshot.exists()){
-                    Log.d(TAG, "Account Exists");
                     ArrayList<String> favoritesArr = new ArrayList<String>();
                     for(DataSnapshot group : dataSnapshot.getChildren()){
                         favoritesArr.add(group.getKey());
                     }
                     User.favorites = favoritesArr;
                     for(String favorite : User.favorites){
-                        Log.d("TAG", favorite);
+                        Log.d(TAG, favorite);
                     }
                     favorites = User.removeDefault();
                 }else{
@@ -80,10 +120,11 @@ public class HomeFragment extends Fragment {
                     newUser.put("mcclintock", true);
                     ref.child("users").child(User.UID).setValue(newUser);
                     //TODO: Subscribe to mcclintock
-                    Log.d(TAG, "Rerunning loadAccount");
                     loadAccount();
                 }
-                //TODO: reload tableview data
+
+                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, favorites);
+                favoritesLV.setAdapter(adapter);
             }
 
             @Override
@@ -103,16 +144,18 @@ public class HomeFragment extends Fragment {
                 for(DataSnapshot newsSnapshot : dataSnapshot.getChildren()){
                     news.put(newsSnapshot.getKey(), newsSnapshot.getValue());
                 }
-                Log.d(TAG, "Headline 1: " + news.get("headline1"));
-                Log.d(TAG, "Headline 2: " + news.get("headline2"));
-                Log.d(TAG, "Headline 3: " + news.get("headline3"));
-                //TODO: Set textviews to these headlines
+
+                headline1TV.setText((String) news.get("headline1"));
+                headline2TV.setText((String) news.get("headline2"));
+                headline3TV.setText((String) news.get("headline3"));
             }
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 Log.e(TAG, "Failed to connect");
                 Log.e(TAG, databaseError.getMessage());
+
+                headline1TV.setText("Failed to Connect");
             }
         });
     }

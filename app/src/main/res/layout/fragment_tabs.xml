@@ -6,16 +6,10 @@
     android:layout_height="fill_parent"
     tools:context="com.bob.mhslife.FragmentTabs">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <TabWidget
-            android:id="@android:id/tabs"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:background="@color/colorBlue"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <FrameLayout
             android:id="@android:id/tabcontent"
@@ -25,8 +19,16 @@
         <FrameLayout
             android:id="@+id/realtabcontent"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
 
-    </RelativeLayout>
+        <TabWidget
+            android:id="@android:id/tabs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorBlue"
+            />
+
+    </LinearLayout>
 
 </android.support.v4.app.FragmentTabHost>
