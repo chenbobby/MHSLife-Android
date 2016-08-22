@@ -3,7 +3,7 @@ package com.bob.mhslife;
 /**
  * Created by Bob on 8/12/2016.
  */
-public class Event {
+public class MHSEvent {
     public boolean exclusive;
     public String group;
     public String name;
@@ -11,9 +11,9 @@ public class Event {
     public String location;
     public String description;
 
-    public Event(){}
+    public MHSEvent(){}
 
-    public Event(boolean exclusive, String group, String name, String date, String location, String description){
+    public MHSEvent(boolean exclusive, String group, String name, String date, String location, String description){
         this.exclusive = exclusive;
         this.group = group;
         this.name = name;

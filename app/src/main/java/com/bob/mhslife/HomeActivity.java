@@ -94,10 +94,6 @@ public class HomeActivity extends Activity {
                 for(DataSnapshot newsSnapshot : dataSnapshot.getChildren()){
                     news.put(newsSnapshot.getKey(), newsSnapshot.getValue());
                 }
-                Log.d(TAG, "Headline 1: " + news.get("headline1"));
-                Log.d(TAG, "Headline 2: " + news.get("headline2"));
-                Log.d(TAG, "Headline 3: " + news.get("headline3"));
-                //TODO: Set textviews to these headlines
             }
 
             @Override

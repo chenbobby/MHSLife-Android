@@ -46,6 +46,7 @@ dependencies {
     compile('com.twitter.sdk.android:twitter:2.0.0@aar') {
         transitive = true;
     }
+    compile 'com.github.sundeepk:compact-calendar-view:1.8.9'
 }
 
 

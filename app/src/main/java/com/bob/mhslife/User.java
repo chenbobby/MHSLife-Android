@@ -16,7 +16,7 @@ import java.util.Map;
 public class User {
     public static String UID;
     public static ArrayList<String> favorites;
-    public static ArrayList<Event> favoriteEvents;
+    public static ArrayList<MHSEvent> favoriteEvents;
 
     public static  void toggleSubscription(final String groupName){
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference();

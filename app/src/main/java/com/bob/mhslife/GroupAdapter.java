@@ -69,6 +69,7 @@ public class GroupAdapter extends BaseAdapter {
 
         Group group = groups.get(index);
 
+        //TODO: add check if group is null like in eventadapter
         holder.groupTV.setText(group.name);
         holder.descriptionTV.setText(group.description);
         holder.groupFavoriteButton.setImageResource(group.image);

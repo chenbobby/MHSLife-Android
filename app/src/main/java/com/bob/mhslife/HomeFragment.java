@@ -43,24 +43,6 @@ public class HomeFragment extends Fragment {
     private TextView headline3TV;
     private ListView favoritesLV;
 
-    private ProgressDialog progressDialog;
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        ref = FirebaseDatabase.getInstance().getReference();
-
-        progressDialog = new ProgressDialog(getActivity());
-        progressDialog.setMessage("Loading Account...");
-        progressDialog.show();
-
-        loadAccount();
-        loadNews();
-
-        progressDialog.dismiss();
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -96,6 +78,11 @@ public class HomeFragment extends Fragment {
             }
         });
 
+        ref = FirebaseDatabase.getInstance().getReference();
+
+        loadAccount();
+        loadNews();
+
         return V;
     }
 
@@ -115,6 +102,9 @@ public class HomeFragment extends Fragment {
                         Log.d(TAG, favorite);
                     }
                     favorites = User.removeDefault();
+
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, favorites);
+                    favoritesLV.setAdapter(adapter);
                 }else{
                     Map<String, Object> newUser = new HashMap<String, Object>();
                     newUser.put("mcclintock", true);
@@ -122,9 +112,6 @@ public class HomeFragment extends Fragment {
                     //TODO: Subscribe to mcclintock
                     loadAccount();
                 }
-
-                ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, favorites);
-                favoritesLV.setAdapter(adapter);
             }
 
             @Override

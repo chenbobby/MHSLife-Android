@@ -3,6 +3,8 @@ package com.bob.mhslife;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -42,6 +44,7 @@ public class GroupSearchActivity extends Activity {
         progressDialog.show();
 
         loadGroups();
+        configSearchBar();
 
         progressDialog.dismiss();
     }
@@ -67,6 +70,31 @@ public class GroupSearchActivity extends Activity {
                 Log.e(TAG, "Failed to connect");
                 Log.e(TAG, databaseError.getMessage());
             }
+        });
+    }
+
+    private void configSearchBar(){
+        searchEditText = (EditText)findViewById(R.id.searchET);
+        searchEditText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {}
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int arg1, int arg2, int arg3) {
+                int textlength = charSequence.length();
+                filteredGroups = new ArrayList<Group>();
+                for(Group group : groups){
+                    if(textlength <= group.name.length()){
+                        if(group.name.toLowerCase().contains(charSequence.toString().toLowerCase())){
+                            filteredGroups.add(group);
+                        }
+                    }
+                }
+                groupsLV.setAdapter(new GroupAdapter(getApplicationContext(), filteredGroups));
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {}
         });
     }
 }
