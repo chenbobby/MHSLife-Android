@@ -1,15 +1,21 @@
 package com.bob.mhslife;
 
+import android.app.ActionBar;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
@@ -37,6 +43,9 @@ public class CalendarFragment extends Fragment {
     private TextView monthTV;
     private CompactCalendarView compactCalendarView;
     private ListView dayEventsLV;
+    private TextView emptyEventsTV;
+    private PopupWindow eventInfoPopupWindow;
+    private LayoutInflater layoutInflater;
 
     private ArrayList<MHSEvent> events;
     private ArrayList<MHSEvent> viewableEvents;
@@ -55,6 +64,7 @@ public class CalendarFragment extends Fragment {
 
         monthTV = (TextView) V.findViewById(R.id.monthTV);
         dayEventsLV = (ListView) V.findViewById(R.id.dayEventsLV);
+        emptyEventsTV = (TextView) V.findViewById(R.id.emptyEventsTV);
 
         compactCalendarView = (CompactCalendarView) V.findViewById(R.id.compactcalendar_view);
         compactCalendarView.setShouldShowMondayAsFirstDay(false);
@@ -71,9 +81,12 @@ public class CalendarFragment extends Fragment {
                     }
                 }
                 if(dayEvents.size() == 0){
-                    dayEvents.add(new MHSEvent(false, "", "Select a Day With Events", "2000-01-01 00:00", "", ""));
+                    emptyEventsTV.setVisibility(View.VISIBLE);
+                }else{
+                    emptyEventsTV.setVisibility(View.GONE);
                 }
                 dayEventsLV.setAdapter(new EventAdapter(getContext(), dayEvents));
+                setEventLVCLickListener();
 
             }
 
@@ -103,7 +116,7 @@ public class CalendarFragment extends Fragment {
                                 (String) event.child("group").getValue(),
                                 event.getKey(),
                                 (String) event.child("date").getValue(),
-                                (String) event.child("locaiton").getValue(),
+                                (String) event.child("location").getValue(),
                                 (String) event.child("description").getValue()));
                     }
                 }
@@ -124,7 +137,7 @@ public class CalendarFragment extends Fragment {
 
                 for(MHSEvent event : User.favoriteEvents){
                     Date eventDate = strToDate(event.date);
-                    compactCalendarView.addEvent(new Event(Color.BLUE, eventDate.getTime()));
+                    compactCalendarView.addEvent(new Event(Color.RED, eventDate.getTime()));
                 }
 
                 compactCalendarView.invalidate();
@@ -135,6 +148,44 @@ public class CalendarFragment extends Fragment {
             public void onCancelled(DatabaseError databaseError) {
                 Log.e(TAG, "Failed to connect");
                 Log.e(TAG, databaseError.getMessage());
+            }
+        });
+    }
+
+    private void setEventLVCLickListener(){
+        dayEventsLV.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                final MHSEvent event = (MHSEvent) (adapterView.getAdapter().getItem(i));
+                layoutInflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+                ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.popoverwindow_eventinfo, null);
+
+                eventInfoPopupWindow = new PopupWindow(container, ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT, true);
+
+                ((TextView) eventInfoPopupWindow.getContentView().findViewById(R.id.eventGroupTV)).setText(event.group);
+                ((TextView) eventInfoPopupWindow.getContentView().findViewById(R.id.eventNameTV)).setText(event.name);
+                ((TextView) eventInfoPopupWindow.getContentView().findViewById(R.id.eventLocationTV)).setText(event.location);
+                ((TextView) eventInfoPopupWindow.getContentView().findViewById(R.id.eventDescriptionTV)).setText(event.description);
+                Date eventDateTime = strToDate(event.date);
+                ((TextView) eventInfoPopupWindow.getContentView().findViewById(R.id.eventDateTV)).setText(android.text.format.DateFormat.format("EEEE MMMM d", eventDateTime));
+                ((TextView) eventInfoPopupWindow.getContentView().findViewById(R.id.eventTimeTV)).setText(android.text.format.DateFormat.format("HH:mm", eventDateTime));
+
+                if(event.group.equals("mcclintock")){
+                    ((TextView) eventInfoPopupWindow.getContentView().findViewById(R.id.eventGroupTV)).setText("McClintock");
+                }
+
+                if(android.text.format.DateFormat.format("HH:mm", eventDateTime).equals("00:00")){
+                    ((TextView) eventInfoPopupWindow.getContentView().findViewById(R.id.eventTimeTV)).setText("");
+                }
+
+                eventInfoPopupWindow.showAtLocation(getView(), Gravity.NO_GRAVITY, 0, 0);
+                container.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View view, MotionEvent motionEvent) {
+                        eventInfoPopupWindow.dismiss();
+                        return true;
+                    }
+                });
             }
         });
     }

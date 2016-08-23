@@ -5,5 +5,7 @@
     <color name="colorSalmon">#FF6666</color>
     <color name="colorRed">#C11C1C</color>
     <color name="colorLightGrey">#C4CDE0</color>
+    <color name="colorGreyMask">#80333333</color>
+    <color name="colorBlueMask">#80002131</color>
     <color name="transparent">#00000000</color>
 </resources>

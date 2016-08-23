@@ -41,6 +41,7 @@ public class HomeFragment extends Fragment {
     private TextView headline1TV;
     private TextView headline2TV;
     private TextView headline3TV;
+    private TextView emptyFavoritesTV;
     private ListView favoritesLV;
 
     @Override
@@ -51,6 +52,7 @@ public class HomeFragment extends Fragment {
         headline1TV = (TextView)V.findViewById(R.id.headline1);
         headline2TV = (TextView)V.findViewById(R.id.headline2);
         headline3TV = (TextView)V.findViewById(R.id.headline3);
+        emptyFavoritesTV = (TextView)V.findViewById(R.id.emptyFavoritesTV);
         favoritesLV = (ListView)V.findViewById(R.id.favoritesLV);
         favoritesLV.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -102,6 +104,12 @@ public class HomeFragment extends Fragment {
                         Log.d(TAG, favorite);
                     }
                     favorites = User.removeDefault();
+
+                    if(favorites.size() == 0){
+                        emptyFavoritesTV.setVisibility(View.VISIBLE);
+                    }else{
+                        emptyFavoritesTV.setVisibility(View.GONE);
+                    }
 
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, favorites);
                     favoritesLV.setAdapter(adapter);

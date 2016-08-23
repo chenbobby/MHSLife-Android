@@ -43,7 +43,7 @@ public class EventAdapter extends BaseAdapter {
 
     @Override
     public Object getItem(int index) {
-        return index;
+        return events.get(index);
     }
 
     @Override
