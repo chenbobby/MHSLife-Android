@@ -92,7 +92,7 @@ public class EventAdapter extends BaseAdapter {
             Date date = format.parse(dateString);
             return date;
         }catch(ParseException e){
-            Log.e("EventAdapter", "Failed to Parse date");
+//            Log.e("EventAdapter", "Failed to Parse date");
             e.printStackTrace();
             return null;
         }

@@ -120,9 +120,6 @@ public class HomeFragment extends Fragment {
                         favoritesArr.add(group.getKey());
                     }
                     User.favorites = favoritesArr;
-                    for(String favorite : User.favorites){
-                        Log.d(TAG, favorite);
-                    }
                     favorites = User.removeDefault();
 
                     if(favorites.size() == 0){
@@ -144,8 +141,8 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.e(TAG, "Failed to connect");
-                Log.e(TAG, databaseError.getMessage());
+//                Log.e(TAG, "Failed to connect");
+//                Log.e(TAG, databaseError.getMessage());
             }
         });
     }
@@ -167,8 +164,8 @@ public class HomeFragment extends Fragment {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.e(TAG, "Failed to connect");
-                Log.e(TAG, databaseError.getMessage());
+//                Log.e(TAG, "Failed to connect");
+//                Log.e(TAG, databaseError.getMessage());
 
                 headline1TV.setText("Failed to Connect");
             }

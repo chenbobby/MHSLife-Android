@@ -67,8 +67,8 @@ public class GroupSearchActivity extends Activity {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.e(TAG, "Failed to connect");
-                Log.e(TAG, databaseError.getMessage());
+//                Log.e(TAG, "Failed to connect");
+//                Log.e(TAG, databaseError.getMessage());
             }
         });
     }

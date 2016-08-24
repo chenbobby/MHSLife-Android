@@ -25,10 +25,10 @@ public class User {
                 @Override
                 public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                     if(databaseError != null){
-                        Log.e("User", "Failed to Connect to Server");
-                        Log.d("User", databaseError.getMessage());
+//                        Log.e("User", "Failed to Connect to Server");
+//                        Log.d("User", databaseError.getMessage());
                     }else{
-                        Log.d("User", groupName + " removed from favorites");
+//                        Log.d("User", groupName + " removed from favorites");
                         //TODO: unsubscribe
                     }
                 }
@@ -41,10 +41,10 @@ public class User {
                 @Override
                 public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
                     if(databaseError != null){
-                        Log.e("User", "Failed to Connect to Server");
-                        Log.d("User", databaseError.getMessage());
+//                        Log.e("User", "Failed to Connect to Server");
+//                        Log.d("User", databaseError.getMessage());
                     }else{
-                        Log.d("User", groupName + " added to favorites");
+//                        Log.d("User", groupName + " added to favorites");
                         //TODO: subscribe
                     }
                 }

@@ -33,9 +33,9 @@ public class FragmentTabs extends FragmentActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if(user != null){
                     User.UID = user.getUid();
-                    Log.d(TAG, "User Signed in: " + User.UID);
+//                    Log.d(TAG, "User Signed in: " + User.UID);
                 }else{
-                    Log.d(TAG, "User not signed in...");
+//                    Log.d(TAG, "User not signed in...");
                 }
             }
         };
@@ -52,7 +52,7 @@ public class FragmentTabs extends FragmentActivity {
     }
 
     public void goToGroupSearch(View view){
-        Log.d(TAG, "GO TO GROUP SEARCH");
+//        Log.d(TAG, "GO TO GROUP SEARCH");
         Intent goToGroupSearch = new Intent(this, GroupSearchActivity.class);
         startActivity(goToGroupSearch);
     }

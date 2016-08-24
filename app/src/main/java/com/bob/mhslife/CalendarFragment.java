@@ -131,7 +131,7 @@ public class CalendarFragment extends Fragment {
                     }
                 }
                 else{
-                    Log.e(TAG, "No Events");
+//                    Log.e(TAG, "No Events");
                 }
 
 
@@ -156,8 +156,8 @@ public class CalendarFragment extends Fragment {
 
             @Override
             public void onCancelled(DatabaseError databaseError) {
-                Log.e(TAG, "Failed to connect");
-                Log.e(TAG, databaseError.getMessage());
+//                Log.e(TAG, "Failed to connect");
+//                Log.e(TAG, databaseError.getMessage());
             }
         });
     }
@@ -213,7 +213,7 @@ public class CalendarFragment extends Fragment {
             Date date = format.parse(dateString);
             return date;
         }catch(ParseException e){
-            Log.e(TAG, "Failed to Parse date");
+//            Log.e(TAG, "Failed to Parse date");
             e.printStackTrace();
             return null;
         }

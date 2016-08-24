@@ -47,21 +47,17 @@ public class RegisterActivity extends Activity {
         String confirmPassword = editTextConfirmPassword.getText().toString().trim();
 
         if (TextUtils.isEmpty(email)){
-            Log.e(TAG, "Please Enter Email");
             Toast.makeText(this, "Please Enter Email", Toast.LENGTH_SHORT).show();
             return;
         }else if(TextUtils.isEmpty(newPassword)){
-            Log.e(TAG, "Please Enter New Password");
             Toast.makeText(this, "Please Enter New Password", Toast.LENGTH_SHORT).show();
             return;
         }else if(TextUtils.isEmpty(confirmPassword)){
-            Log.e(TAG, "Please Confirm Password");
             Toast.makeText(this, "Please Confirm Password", Toast.LENGTH_SHORT).show();
             return;
         }else if(!newPassword.equals(confirmPassword)){
             editTextNewPassword.setText("");
             editTextConfirmPassword.setText("");
-            Log.e(TAG, "Passwords do not match");
             Toast.makeText(this, "Passwords do not match", Toast.LENGTH_SHORT).show();
             return;
         }

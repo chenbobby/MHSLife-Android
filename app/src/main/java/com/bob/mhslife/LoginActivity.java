@@ -78,9 +78,9 @@ public class LoginActivity extends Activity{
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if(user != null){
                     User.UID = user.getUid();
-                    Log.d(TAG, "User Signed in: " + User.UID);
+//                    Log.d(TAG, "User Signed in: " + User.UID);
                 }else{
-                    Log.d(TAG, "User not signed in...");
+//                    Log.d(TAG, "User not signed in...");
                 }
             }
         };
@@ -126,7 +126,7 @@ public class LoginActivity extends Activity{
             }
             @Override
             public void failure(TwitterException exception) {
-                Log.d("TwitterKit", "Login with Twitter failure", exception);
+//                Log.d("TwitterKit", "Login with Twitter failure", exception);
             }
         });
 
@@ -138,11 +138,9 @@ public class LoginActivity extends Activity{
         String password = editTextPassword.getText().toString().trim();
 
         if(TextUtils.isEmpty(email)){
-            Log.e(TAG, "Email cannot be empty.");
             Toast.makeText(this, "Please Enter Email", Toast.LENGTH_SHORT).show();
             return;
         }else if(TextUtils.isEmpty(password)){
-            Log.e(TAG, "Password cannot be empty.");
             Toast.makeText(this, "Please Enter Password", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -208,7 +206,6 @@ public class LoginActivity extends Activity{
     }
 
     private void showCredits(){
-        Log.d(TAG, "LongClicked");
         layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.popoverwindow_credits, null);
 
