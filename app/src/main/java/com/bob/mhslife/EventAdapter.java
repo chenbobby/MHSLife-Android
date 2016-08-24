@@ -1,6 +1,7 @@
 package com.bob.mhslife;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +23,8 @@ public class EventAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<MHSEvent> events;
     private LayoutInflater inflater;
+
+    private Typeface KGMissKindyChunky;
 
     private final class ViewHolder {
         private TextView eventTV;
@@ -66,13 +69,17 @@ public class EventAdapter extends BaseAdapter {
         MHSEvent event = events.get(index);
 
         if(event != null){
+            KGMissKindyChunky = Typeface.createFromAsset(context.getAssets(), "kgmisskindychunky.ttf");
+
             holder.eventTV.setText(event.name);
+            holder.eventTV.setTypeface(KGMissKindyChunky);
 
             String time = new SimpleDateFormat("HH:mm").format(strToDate(event.date).getTime());
             if(time.equals("00:00")){
                 holder.timeTV.setText("");
             }else{
                 holder.timeTV.setText(time);
+                holder.timeTV.setTypeface(KGMissKindyChunky);
             }
         }
 

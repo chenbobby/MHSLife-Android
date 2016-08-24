@@ -3,7 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.bob.mhslife.LoginActivity">
+    tools:context="com.bob.mhslife.LoginActivity"
+    android:id="@+id/loginFrameLayout">
 
     <ImageView
         android:layout_width="match_parent"
@@ -25,13 +26,29 @@
             android:paddingTop="@dimen/activity_vertical_margin"
             android:orientation="vertical">
 
-            <TextView
+            <FrameLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="40dp"
-                android:textSize="40sp"
-                android:text="@string/mhslife"/>
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:layout_width="230dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginLeft="35dp"
+                    android:background="#ffffff"
+                    android:scaleType="center"/>
+
+                <TextView
+                    android:id="@+id/MHSLifeTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="40dp"
+                    android:text="@string/mhslife"
+                    android:textSize="70sp"
+                    android:textColor="@color/colorRed"/>
+
+            </FrameLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -74,12 +91,11 @@
                 android:textSize="18sp"
                 android:onClick="loginUser"/>
 
-
-
             <com.twitter.sdk.android.core.identity.TwitterLoginButton
                 android:id="@+id/twitter_login_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="40dp"
                 android:layout_gravity="center_horizontal"/>
 
 

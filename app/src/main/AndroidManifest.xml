@@ -28,14 +28,6 @@
             android:name=".FragmentTabs"
             android:configChanges="orientation"
             android:screenOrientation="portrait" />
-        <activity
-            android:name=".HomeActivity"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".CalendarActivity"
-            android:configChanges="orientation"
-            android:screenOrientation="portrait" />
 
         <meta-data
             android:name="io.fabric.ApiKey"

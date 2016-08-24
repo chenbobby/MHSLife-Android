@@ -7,7 +7,7 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:orientation="vertical"
-    android:background="@color/colorRed"
+    android:background="@color/colorSky"
     tools:context="com.bob.mhslife.HomeFragment">
 
     <LinearLayout
@@ -18,34 +18,56 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:orientation="vertical"
-        android:background="@drawable/skyroundbox">
+        android:background="@drawable/salmonroundbox">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="NEWS"
-            android:textColor="@color/colorBlue"/>
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="75dp"
+                android:layout_height="25dp"
+                android:layout_marginTop="3dp"
+                android:layout_marginLeft="20dp"
+                android:background="#ffffff"
+                android:scaleType="center"/>
+
+            <TextView
+                android:id="@+id/newsTV"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/news"
+                android:textSize="45sp"
+                android:textColor="@color/colorBlue"/>
+
+        </FrameLayout>
 
         <TextView
             android:id="@+id/headline1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
             android:text="Headline 1"
-            android:textColor="@color/colorBlue"/>
+            android:textSize="18sp"
+            android:textColor="#fff"/>
 
         <TextView
             android:id="@+id/headline2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
             android:text="Headline 2"
-            android:textColor="@color/colorBlue"/>
+            android:textSize="18sp"
+            android:textColor="#fff"/>
 
         <TextView
             android:id="@+id/headline3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="3dp"
             android:text="Headline 3"
-            android:textColor="@color/colorBlue"/>
+            android:textSize="18sp"
+            android:textColor="#fff"/>
 
     </LinearLayout>
 
@@ -58,25 +80,40 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:orientation="vertical"
-        android:background="@drawable/skyroundbox">
+        android:background="@drawable/salmonroundbox">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <TextView
+            <FrameLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:text="FAVORITES"
-                android:textSize="30dp"
-                android:textColor="@color/colorBlue"/>
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:layout_width="175dp"
+                    android:layout_height="25dp"
+                    android:layout_marginTop="3dp"
+                    android:layout_marginLeft="20dp"
+                    android:background="#ffffff"
+                    android:scaleType="center"/>
+
+                <TextView
+                    android:id="@+id/favoritesTV"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="@string/favorites"
+                    android:textSize="45sp"
+                    android:textColor="@color/colorBlue"/>
+
+            </FrameLayout>
 
             <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:src="@drawable/ic_add"
+                android:src="@drawable/ic_add_group"
                 android:background="@color/transparent"
                 android:onClick="goToGroupSearch"/>
 
@@ -93,7 +130,7 @@
             android:layout_marginTop="80dp"
             android:layout_gravity="center"
             android:background="@drawable/salmonroundbox"
-            android:text="Oh No! No Groups are favorited."
+            android:text="@string/emptyfavorites"
             android:textColor="#fff"
             android:textSize="14sp"
             android:textAlignment="center"/>

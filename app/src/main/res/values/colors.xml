@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorSky">#66CCFF</color>
-    <color name="colorBlue">#002131</color>
+    <color name="colorBlue">#000080</color>
     <color name="colorSalmon">#FF6666</color>
     <color name="colorRed">#C11C1C</color>
     <color name="colorLightGrey">#C4CDE0</color>

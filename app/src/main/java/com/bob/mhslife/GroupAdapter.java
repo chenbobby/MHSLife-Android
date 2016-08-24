@@ -1,6 +1,7 @@
 package com.bob.mhslife;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +20,8 @@ public class GroupAdapter extends BaseAdapter {
     private Context context;
     private ArrayList<Group> groups;
     private LayoutInflater inflater;
+
+    private Typeface KGMissKindyChunky;
 
     private final class ViewHolder{
         TextView groupTV;
@@ -69,12 +72,17 @@ public class GroupAdapter extends BaseAdapter {
 
         Group group = groups.get(index);
 
-        //TODO: add check if group is null like in eventadapter
-        holder.groupTV.setText(group.name);
-        holder.descriptionTV.setText(group.description);
-        holder.groupFavoriteButton.setImageResource(group.image);
-        holder.groupFavoriteButton.setOnClickListener(favoriteListener);
-        holder.groupFavoriteButton.setTag(index);
+        if(group != null){
+            KGMissKindyChunky = Typeface.createFromAsset(context.getAssets(), "kgmisskindychunky.ttf");
+
+            holder.groupTV.setText(group.name);
+            holder.descriptionTV.setText(group.description);
+            holder.groupTV.setTypeface(KGMissKindyChunky);
+            holder.descriptionTV.setTypeface(KGMissKindyChunky);
+            holder.groupFavoriteButton.setImageResource(group.image);
+            holder.groupFavoriteButton.setOnClickListener(favoriteListener);
+            holder.groupFavoriteButton.setTag(index);
+        }
 
         return view;
     }

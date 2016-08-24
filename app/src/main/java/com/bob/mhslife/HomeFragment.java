@@ -3,6 +3,7 @@ package com.bob.mhslife;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -38,21 +39,40 @@ public class HomeFragment extends Fragment {
 
     private ArrayList<String> favorites;
 
+    private TextView newsTV;
     private TextView headline1TV;
     private TextView headline2TV;
     private TextView headline3TV;
+    private TextView favoritesTV;
     private TextView emptyFavoritesTV;
     private ListView favoritesLV;
+
+    private Typeface KGDefyingGravity;
+    private Typeface RoundedElegance;
+    private Typeface KGMissKindyChunky;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View V = inflater.inflate(R.layout.fragment_home, container, false);
+
+        initFonts();
+
+        newsTV = (TextView)V.findViewById(R.id.newsTV);
         headline1TV = (TextView)V.findViewById(R.id.headline1);
         headline2TV = (TextView)V.findViewById(R.id.headline2);
         headline3TV = (TextView)V.findViewById(R.id.headline3);
+        favoritesTV = (TextView)V.findViewById(R.id.favoritesTV);
         emptyFavoritesTV = (TextView)V.findViewById(R.id.emptyFavoritesTV);
+
+        newsTV.setTypeface(KGDefyingGravity);
+        headline1TV.setTypeface(RoundedElegance);
+        headline2TV.setTypeface(RoundedElegance);
+        headline3TV.setTypeface(RoundedElegance);
+        favoritesTV.setTypeface(KGDefyingGravity);
+        emptyFavoritesTV.setTypeface(KGMissKindyChunky);
+
         favoritesLV = (ListView)V.findViewById(R.id.favoritesLV);
         favoritesLV.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
@@ -153,6 +173,12 @@ public class HomeFragment extends Fragment {
                 headline1TV.setText("Failed to Connect");
             }
         });
+    }
+
+    private void initFonts(){
+        KGDefyingGravity = Typeface.createFromAsset(getActivity().getAssets(), "kgdefyinggravity.ttf");
+        RoundedElegance = Typeface.createFromAsset(getActivity().getAssets(), "roundedelegance.ttf");
+        KGMissKindyChunky = Typeface.createFromAsset(getActivity().getAssets(), "kgmisskindychunky.ttf");
     }
 
     @Override

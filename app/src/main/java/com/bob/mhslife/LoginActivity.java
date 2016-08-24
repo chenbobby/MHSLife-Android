@@ -1,14 +1,24 @@
 package com.bob.mhslife;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.Gravity;
+import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -41,8 +51,17 @@ public class LoginActivity extends Activity{
 
     private static final String TAG = "LoginActivity";
 
+    private TextView MHSLifeTV;
     private EditText editTextEmail;
     private EditText editTextPassword;
+    private Button loginButton;
+    private Button goToRegisterButton;
+    private PopupWindow creditsPopupWindow;
+    private LayoutInflater layoutInflater;
+
+    private Typeface KGDefyingGravity;
+    private Typeface Biko;
+    private Typeface RoundedElegance;
 
     private ProgressDialog progressDialog;
 
@@ -70,8 +89,27 @@ public class LoginActivity extends Activity{
             goToHome();
         }
 
+        initFonts();
+
+        MHSLifeTV = (TextView) findViewById(R.id.MHSLifeTV);
+        MHSLifeTV.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                showCredits();
+                return true;
+            }
+        });
+
+        loginButton = (Button) findViewById(R.id.loginButton);
+        goToRegisterButton = (Button) findViewById(R.id.goToRegisterButton);
+
         editTextEmail = (EditText) findViewById(R.id.emailTV);
         editTextPassword = (EditText) findViewById(R.id.passwordTV);
+
+        MHSLifeTV.setTypeface(KGDefyingGravity);
+        loginButton.setTypeface(Biko);
+        goToRegisterButton.setTypeface(Biko);
+
         progressDialog = new ProgressDialog(this);
 
         // TWITTER
@@ -150,7 +188,7 @@ public class LoginActivity extends Activity{
                 progressDialog.dismiss();
 
                 if(!task.isSuccessful()){
-                    Toast.makeText(LoginActivity.this, "Failed to Log In", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "Error with Twitter Connection", Toast.LENGTH_SHORT).show();
                 }else{
                     goToHome();
                 }
@@ -169,6 +207,28 @@ public class LoginActivity extends Activity{
         startActivity(intent);
     }
 
+    private void showCredits(){
+        Log.d(TAG, "LongClicked");
+        layoutInflater = (LayoutInflater) getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        ViewGroup container = (ViewGroup) layoutInflater.inflate(R.layout.popoverwindow_credits, null);
+
+        creditsPopupWindow = new PopupWindow(container, ActionBar.LayoutParams.MATCH_PARENT, ActionBar.LayoutParams.MATCH_PARENT, true);
+
+        ((TextView) creditsPopupWindow.getContentView().findViewById(R.id.creditsTV)).setTypeface(RoundedElegance);
+        ((TextView) creditsPopupWindow.getContentView().findViewById(R.id.createdbyTV)).setTypeface(RoundedElegance);
+        ((TextView) creditsPopupWindow.getContentView().findViewById(R.id.creatortwitterTV)).setTypeface(RoundedElegance);
+        ((TextView) creditsPopupWindow.getContentView().findViewById(R.id.creatoremailTV)).setTypeface(RoundedElegance);
+
+        creditsPopupWindow.showAtLocation(this.findViewById(R.id.loginFrameLayout), Gravity.NO_GRAVITY, 0, 0);
+        container.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                creditsPopupWindow.dismiss();
+                return true;
+            }
+        });
+    }
+
     //Init/Deinit AuthListeners
     @Override
     protected void onStart() {
@@ -182,5 +242,12 @@ public class LoginActivity extends Activity{
         if(mAuthListener != null){
             firebaseAuth.removeAuthStateListener(mAuthListener);
         }
+    }
+
+    //Init Fonts
+    private void initFonts(){
+        KGDefyingGravity = Typeface.createFromAsset(getAssets(), "kgdefyinggravity.ttf");
+        Biko = Typeface.createFromAsset(getAssets(), "biko.otf");
+        RoundedElegance = Typeface.createFromAsset(getAssets(), "roundedelegance.ttf");
     }
 }

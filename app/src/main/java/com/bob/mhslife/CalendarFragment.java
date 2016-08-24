@@ -3,6 +3,7 @@ package com.bob.mhslife;
 import android.app.ActionBar;
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -47,6 +48,10 @@ public class CalendarFragment extends Fragment {
     private PopupWindow eventInfoPopupWindow;
     private LayoutInflater layoutInflater;
 
+    private Typeface Biko;
+    private Typeface KGMissKindyChunky;
+    private Typeface RoundedElegance;
+
     private ArrayList<MHSEvent> events;
     private ArrayList<MHSEvent> viewableEvents;
     private ArrayList<MHSEvent> dayEvents;
@@ -65,6 +70,11 @@ public class CalendarFragment extends Fragment {
         monthTV = (TextView) V.findViewById(R.id.monthTV);
         dayEventsLV = (ListView) V.findViewById(R.id.dayEventsLV);
         emptyEventsTV = (TextView) V.findViewById(R.id.emptyEventsTV);
+
+        initFonts();
+
+        monthTV.setTypeface(Biko);
+        emptyEventsTV.setTypeface(KGMissKindyChunky);
 
         compactCalendarView = (CompactCalendarView) V.findViewById(R.id.compactcalendar_view);
         compactCalendarView.setShouldShowMondayAsFirstDay(false);
@@ -178,6 +188,13 @@ public class CalendarFragment extends Fragment {
                     ((TextView) eventInfoPopupWindow.getContentView().findViewById(R.id.eventTimeTV)).setText("");
                 }
 
+                ((TextView) eventInfoPopupWindow.getContentView().findViewById(R.id.eventGroupTV)).setTypeface(Biko);
+                ((TextView) eventInfoPopupWindow.getContentView().findViewById(R.id.eventNameTV)).setTypeface(RoundedElegance);
+                ((TextView) eventInfoPopupWindow.getContentView().findViewById(R.id.eventLocationTV)).setTypeface(Biko);
+                ((TextView) eventInfoPopupWindow.getContentView().findViewById(R.id.eventDescriptionTV)).setTypeface(Biko);
+                ((TextView) eventInfoPopupWindow.getContentView().findViewById(R.id.eventDateTV)).setTypeface(Biko);
+                ((TextView) eventInfoPopupWindow.getContentView().findViewById(R.id.eventTimeTV)).setTypeface(RoundedElegance);
+
                 eventInfoPopupWindow.showAtLocation(getView(), Gravity.NO_GRAVITY, 0, 0);
                 container.setOnTouchListener(new View.OnTouchListener() {
                     @Override
@@ -205,6 +222,13 @@ public class CalendarFragment extends Fragment {
     private boolean isOnSameDay(Date date1, Date date2){
         SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
         return format.format(date1).equals(format.format(date2));
+    }
+
+    //Init Fonts
+    private void initFonts(){
+        Biko = Typeface.createFromAsset(getActivity().getAssets(), "biko.otf");
+        KGMissKindyChunky = Typeface.createFromAsset(getActivity().getAssets(), "kgmisskindychunky.ttf");
+        RoundedElegance = Typeface.createFromAsset(getActivity().getAssets(), "roundedelegance.ttf");
     }
 
     @Override
